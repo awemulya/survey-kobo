@@ -40,6 +40,10 @@ urlpatterns = patterns(
         'onadata.apps.main.google_export.google_auth_return',
         name='google-auth-welcome'),
 
+    # office urls
+
+    url(r'^office', include('onadata.apps.office.urls')),
+
     # main website views
     url(r'^$', 'onadata.apps.main.views.home'),
     url(r'^tutorial/$', 'onadata.apps.main.views.tutorial', name='tutorial'),
