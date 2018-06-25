@@ -10,6 +10,8 @@ from onadata.apps.api.urls import BriefcaseApi
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
+from onadata.apps.office.viewsets import CustomXFormSubmissionApi
+
 admin.autodiscover()
 
 urlpatterns = patterns(
@@ -41,6 +43,10 @@ urlpatterns = patterns(
         name='google-auth-welcome'),
 
     # office urls
+
+    url(r"^(?P<username>\w+)/submission$",
+        CustomXFormSubmissionApi.as_view({'post': 'create', 'head': 'create'}),
+        name='submissions'),
 
     url(r'^office', include('onadata.apps.office.urls')),
 

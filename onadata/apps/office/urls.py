@@ -12,5 +12,5 @@ router.register(r'office', OfficeViewset)
 urlpatterns = [
     # url(r'^', Application.as_view(), name='home'),
     url(r'api/',  include(router.urls)),
-    # url(r'home', Application.as_view(), name='home'),
+    url(r'enketo1/(?P<pk>[\d+^/]+)', get_enketo_survey_links, name='links'),
     ]

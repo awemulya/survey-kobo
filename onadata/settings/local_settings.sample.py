@@ -120,7 +120,10 @@ ENKETO_SERVER= ENKETO_SERVER + '/' if not ENKETO_SERVER.endswith('/') else ENKET
 ENKETO_VERSION= os.environ.get('ENKETO_VERSION', 'Legacy').lower()
 #assert ENKETO_VERSION in ['legacy', 'express']
 ENKETO_PREVIEW_URI = 'webform/preview' if ENKETO_VERSION == 'legacy' else 'preview'
+ENKETO_SURVEY_ENDPOINT = 'api/v2/survey/all'
 FRONTEND_ENVIRONMENT_DEV_MODE = True
+
+KOBOCAT_URL = 'http://localhost:8001'
 
 # STATIC_ROOT = os.path.join(ONADATA_DIR, 'admin-static')
 #
