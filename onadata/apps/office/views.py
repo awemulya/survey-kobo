@@ -2,11 +2,13 @@ import logging
 import requests
 from django.conf import settings
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from rest_framework.decorators import api_view
 
-from onadata.apps.office.models import OfficeForm
+from onadata.apps.logger.models import XForm
+from onadata.apps.office.models import OfficeForm, Form
 from rest_framework.response import Response
+from .forms import OfficeForm
 
 
 class Application(TemplateView):
@@ -51,3 +53,15 @@ def get_enketo_survey_links(request, pk):
             except KeyError:
                 pass
         return Response(links['offline_url']+"?fieldsight="+pk)
+
+
+class XFormView(CreateView):
+    model = XForm
+    fields = '__all__'
+    template_name = 'office/xform_form.html'
+
+
+class FormView(CreateView):
+    model = Form
+    form_class = OfficeForm
+    template_name = 'office/form.html'

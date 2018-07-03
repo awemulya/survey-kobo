@@ -8,9 +8,19 @@ from .viewsets import*
 router = routers.DefaultRouter()
 
 router.register(r'office', OfficeViewset)
+router.register(r'office-users', OfficeUserViewset)
+router.register(r'users', UserViewset)
+router.register(r'office-forms', OfficeFormViewset)
+router.register(r'forms', FormViewset)
+router.register(r'xforms', XFormViewset)
+
 
 urlpatterns = [
     # url(r'^', Application.as_view(), name='home'),
     url(r'api/',  include(router.urls)),
     url(r'enketo1/(?P<pk>[\d+^/]+)', get_enketo_survey_links, name='links'),
-    ]
+    url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
+    url(r'xform-create/', XFormView.as_view(), name='xform'),
+    url(r'form-create/', FormView.as_view(), name='form'),
+
+]

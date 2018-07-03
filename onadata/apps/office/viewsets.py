@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets, status
 
-from onadata.apps.office.serializers import OfficeSerializer, UserSerializer, OfficeUserSerializer
+from onadata.apps.logger.models import XForm
+from onadata.apps.office.serializers import OfficeSerializer, UserSerializer, OfficeUserSerializer, OfficeFormSerializer, FormSerializer
 
-from onadata.apps.office.models import Office, OfficeUser
+from onadata.apps.office.models import Office, OfficeUser, OfficeForm, Form
 
 from onadata.apps.api.viewsets.xform_submission_api import XFormSubmissionApi
 from rest_framework.generics import get_object_or_404
+from onadata.libs.serializers.xform_serializer import XFormListSerializer, XFormSerializer
 
 from onadata.apps.main.models import UserProfile
 from rest_framework.response import Response
@@ -21,6 +23,35 @@ class OfficeViewset(viewsets.ModelViewSet):
     serializer_class = OfficeSerializer
     queryset = Office.objects.all()
 
+
+class OfficeFormViewset(viewsets.ModelViewSet):
+    serializer_class = OfficeFormSerializer
+    queryset = OfficeForm.objects.select_related('office', 'form')
+
+
+class FormViewset(viewsets.ModelViewSet):
+    serializer_class = FormSerializer
+    queryset = Form.objects.all()
+
+
+class XFormViewset(viewsets.ModelViewSet):
+    serializer_class = XFormSerializer
+    queryset = XForm.objects.all()
+
+
+class OfficeFormListViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = XFormListSerializer
+
+    def get_queryset(self):
+        office_id = self.kwargs.get('office_id')
+        office = get_object_or_404(Office, id=office_id)
+        if office:
+            self.queryset = OfficeForm.objects.filter(office_id=office)
+            self.queryset = [of.form for of in self.queryset]
+            return self.queryset
+        return []
+
+
 class UserViewset(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -30,14 +61,17 @@ class OfficeUserViewset(viewsets.ModelViewSet):
     serializer_class = OfficeUserSerializer
     queryset = OfficeUser.objects.all()
 
-
     def get_queryset(self):
         params = self.request.query_params
         if params.get('user', False):
+            print(params.get('user'))
             self.queryset = self.queryset.filter(user=params.get('user'))
         if params.get('office', False):
-            self.queryset = self.queryset.filter(office =params.get('office'))
+            print(params.get('office'))
+
+            self.queryset = self.queryset.filter(office=params.get('office'))
         return self.queryset
+
 
 class CustomXFormSubmissionApi(XFormSubmissionApi):
 
