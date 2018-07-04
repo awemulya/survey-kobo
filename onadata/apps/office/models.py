@@ -11,6 +11,13 @@ TYPE_CHOICES = [(1, 'Napi'), (2, 'Bhumi Sudhar'), (3, 'Malpot')]
 ANUSUCHI_CHOICES = [(1, 'First'), (2, 'Second'), (3, 'Third')]
 
 
+class Type(models.Model):
+    type = models.IntegerField(choices=TYPE_CHOICES)
+
+    def __str__(self):
+        return self.type
+
+
 class District(models.Model):
     name = models.CharField(max_length=100)
 

@@ -1,13 +1,16 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets, status
+from rest_framework.views import APIView
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.serializers import OfficeSerializer, UserSerializer, OfficeUserSerializer, OfficeFormSerializer, FormSerializer
+from onadata.apps.office.serializers import OfficeSerializer, UserSerializer, OfficeUserSerializer, OfficeFormSerializer, FormSerializer, DistrictSerializer, TypeSerializer
 
-from onadata.apps.office.models import Office, OfficeUser, OfficeForm, Form
+from onadata.apps.office.models import Office, OfficeUser, OfficeForm, Form, District, Type
 
 from onadata.apps.api.viewsets.xform_submission_api import XFormSubmissionApi
 from rest_framework.generics import get_object_or_404
+
+from onadata.libs.renderers.renderers import XFormListRenderer
 from onadata.libs.serializers.xform_serializer import XFormListSerializer, XFormSerializer
 
 from onadata.apps.main.models import UserProfile
@@ -36,6 +39,7 @@ class FormViewset(viewsets.ModelViewSet):
 
 class XFormViewset(viewsets.ModelViewSet):
     serializer_class = XFormSerializer
+    renderer_classes = [XFormListRenderer]
     queryset = XForm.objects.all()
 
 
@@ -71,6 +75,16 @@ class OfficeUserViewset(viewsets.ModelViewSet):
 
             self.queryset = self.queryset.filter(office=params.get('office'))
         return self.queryset
+
+
+class DistrictViewset(viewsets.ModelViewSet):
+    serializer_class = DistrictSerializer
+    queryset = District.objects.all()
+
+
+class TypeViewset(viewsets.ModelViewSet):
+    serializer_class = TypeSerializer
+    queryset = Type.objects.all()
 
 
 class CustomXFormSubmissionApi(XFormSubmissionApi):

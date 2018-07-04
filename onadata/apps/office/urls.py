@@ -13,7 +13,8 @@ router.register(r'users', UserViewset)
 router.register(r'office-forms', OfficeFormViewset)
 router.register(r'forms', FormViewset)
 router.register(r'xforms', XFormViewset)
-
+router.register(r'districts', DistrictViewset)
+router.register(r'type', TypeViewset)
 
 urlpatterns = [
     # url(r'^', Application.as_view(), name='home'),
