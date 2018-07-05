@@ -82,7 +82,7 @@ class DistrictViewset(viewsets.ModelViewSet):
     queryset = District.objects.all()
 
 
-class TypeViewset(viewsets.ModelViewSet):
+class TypeViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = TypeSerializer
     queryset = Type.objects.all()
 
