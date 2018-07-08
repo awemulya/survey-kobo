@@ -1,4 +1,6 @@
 from django.conf.urls import url, include
+from django.contrib.auth import views as auth_views
+
 from rest_framework import routers
 
 from .views import*
@@ -23,5 +25,7 @@ urlpatterns = [
     url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
     url(r'xform-create/', XFormView.as_view(), name='xform'),
     url(r'form-create/', FormView.as_view(), name='form'),
+    url(r'offices-list/', OfficeList.as_view(), name='office_list'),
+
 
 ]

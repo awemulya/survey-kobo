@@ -2,11 +2,11 @@ import logging
 import requests
 from django.conf import settings
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from rest_framework.decorators import api_view
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import OfficeForm, Form
+from onadata.apps.office.models import OfficeForm, Form, Office
 from rest_framework.response import Response
 from .forms import OfficeForm
 
@@ -53,6 +53,11 @@ def get_enketo_survey_links(request, pk):
             except KeyError:
                 pass
         return Response(links['offline_url']+"?fieldsight="+pk)
+
+
+class OfficeList(ListView):
+    model = Office
+    fields = '__all__'
 
 
 class XFormView(CreateView):

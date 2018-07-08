@@ -10,7 +10,7 @@ from onadata.apps.office.models import Office, OfficeUser, OfficeForm, Form, Dis
 from onadata.apps.api.viewsets.xform_submission_api import XFormSubmissionApi
 from rest_framework.generics import get_object_or_404
 
-from onadata.libs.renderers.renderers import XFormListRenderer
+from onadata.libs.renderers.renderers import XFormListRenderer, XFormManifestRenderer
 from onadata.libs.serializers.xform_serializer import XFormListSerializer, XFormSerializer
 
 from onadata.apps.main.models import UserProfile
@@ -38,7 +38,7 @@ class FormViewset(viewsets.ModelViewSet):
 
 
 class XFormViewset(viewsets.ModelViewSet):
-    serializer_class = XFormSerializer
+    serializer_class = XFormListSerializer
     renderer_classes = [XFormListRenderer]
     queryset = XForm.objects.all()
 
