@@ -1,21 +1,23 @@
 import logging
 import requests
+
 from django.conf import settings
-from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from onadata.apps.logger.models import XForm
 from onadata.apps.office.models import OfficeForm, Form, Office
-from rest_framework.response import Response
 from .forms import OfficeForm
 
 
 class Application(TemplateView):
     template_name = "office/index.html"
+
     def get_context_data(self, **kwargs):
         data = super(Application, self).get_context_data(**kwargs)
         return data
+
 
 @api_view(['GET'])
 def get_enketo_survey_links(request, pk):
@@ -55,9 +57,19 @@ def get_enketo_survey_links(request, pk):
         return Response(links['offline_url']+"?fieldsight="+pk)
 
 
-class OfficeList(ListView):
+class Dashboard(TemplateView):
+    template_name = 'office/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+
+        context['offices'] = Office.objects.all().select_related('district')
+        return context
+
+
+class OfficeDetailView(DetailView):
     model = Office
-    fields = '__all__'
+    context_object_name = 'office'
 
 
 class XFormView(CreateView):
@@ -70,3 +82,5 @@ class FormView(CreateView):
     model = Form
     form_class = OfficeForm
     template_name = 'office/form.html'
+
+

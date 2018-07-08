@@ -1,5 +1,4 @@
 from django.conf.urls import url, include
-from django.contrib.auth import views as auth_views
 
 from rest_framework import routers
 
@@ -23,9 +22,11 @@ urlpatterns = [
     url(r'api/',  include(router.urls)),
     url(r'enketo1/(?P<pk>[\d+^/]+)', get_enketo_survey_links, name='links'),
     url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
-    url(r'xform-create/', XFormView.as_view(), name='xform'),
-    url(r'form-create/', FormView.as_view(), name='form'),
-    url(r'offices-list/', OfficeList.as_view(), name='office_list'),
+
+    url(r'/dashboard/$', Dashboard.as_view(), name='dashboard'),
+    url(r'/office-detail/(?P<pk>[\d+^/]+)/$', OfficeDetailView.as_view(), name='office_detail'),
+    url(r'/xform-create/$', XFormView.as_view(), name='xform'),
+    url(r'/form-create/$', FormView.as_view(), name='form'),
 
 
 ]

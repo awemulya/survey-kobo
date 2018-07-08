@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-{{ object_list }}
+{#<a href="{% url 'form' %}">Create Form</a><br>#}
+
+<h2>Office List</h2>
+{% for office in offices %}
+    <a href="{% url 'office_detail' office.pk %}">{{ forloop.counter }}. {{ office.name }}</a>
+{% endfor %}
 </body>
 </html>
