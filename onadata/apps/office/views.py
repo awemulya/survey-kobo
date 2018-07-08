@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from onadata.apps.logger.models import XForm
 from onadata.apps.office.models import OfficeForm, Form, Office
 from .forms import OfficeForm
+from rest_framework.response import Response
+from .forms import OfficeForm as OfficeFormForm
 
 
 class Application(TemplateView):
@@ -22,6 +24,7 @@ class Application(TemplateView):
 @api_view(['GET'])
 def get_enketo_survey_links(request, pk):
         office_form = OfficeForm.objects.get(pk=pk)
+        office = str(office_form.office.id)
         xform = office_form.form
         data = {
             'server_url': u'{}/{}'.format(
@@ -54,7 +57,7 @@ def get_enketo_survey_links(request, pk):
                 del links[discard]
             except KeyError:
                 pass
-        return Response(links['offline_url']+"?fieldsight="+pk)
+        return Response(links['offline_url']+"?fieldsight="+office)
 
 
 class Dashboard(TemplateView):
@@ -80,7 +83,5 @@ class XFormView(CreateView):
 
 class FormView(CreateView):
     model = Form
-    form_class = OfficeForm
+    form_class = OfficeFormForm
     template_name = 'office/form.html'
-
-
