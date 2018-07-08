@@ -21,6 +21,10 @@ from onadata.apps.api.viewsets.xform_submission_api import is_json, create_insta
 
 from onadata.libs.serializers.data_serializer import SubmissionSerializer
 
+from onadata.apps.viewer.models.parsed_instance import update_mongo_instance
+
+from kobocat.onadata.apps.office.models import OfficeInstance
+
 
 class OfficeViewset(viewsets.ModelViewSet):
     serializer_class = OfficeSerializer
@@ -92,7 +96,7 @@ class CustomXFormSubmissionApi(XFormSubmissionApi):
     def create(self, request, *args, **kwargs):
         username = self.kwargs.get('username')
 
-        fieldsight_key = self.request.query_params['fieldsight']
+        office = self.request.query_params['fieldsight']
 
         if self.request.user.is_anonymous():
             if username is None:
@@ -120,11 +124,18 @@ class CustomXFormSubmissionApi(XFormSubmissionApi):
 
         error, instance = (create_instance_from_json if is_json_request else
                            create_instance_from_xml)(username, request)
-        # update fieldsight key in mongo
-        # insert into OfficeInstance
 
         if error or not instance:
             return self.error_response(error, is_json_request, request)
+
+        # mongo update
+        parsed_instance = instance.parsed_instance
+        d = parsed_instance.to_dict_for_mongo()
+        d.update({'office': office})
+        update_mongo_instance(d)
+
+        # insert into OfficeInstance
+        OfficeInstance.objects.get_or_create(office_id=office, instance=instance)
 
         context = self.get_serializer_context()
         serializer = SubmissionSerializer(instance, context=context)
