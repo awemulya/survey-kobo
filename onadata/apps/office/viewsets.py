@@ -10,8 +10,8 @@ from onadata.apps.office.models import Office, OfficeUser, OfficeForm, Form, Dis
 from onadata.apps.api.viewsets.xform_submission_api import XFormSubmissionApi
 from rest_framework.generics import get_object_or_404
 
-from onadata.libs.renderers.renderers import XFormListRenderer, XFormManifestRenderer
-from onadata.libs.serializers.xform_serializer import XFormListSerializer, XFormSerializer
+from onadata.libs.renderers.renderers import XFormListRenderer
+from onadata.libs.serializers.xform_serializer import XFormListSerializer
 
 from onadata.apps.main.models import UserProfile
 from rest_framework.response import Response
@@ -23,7 +23,7 @@ from onadata.libs.serializers.data_serializer import SubmissionSerializer
 
 from onadata.apps.viewer.models.parsed_instance import update_mongo_instance
 
-from kobocat.onadata.apps.office.models import OfficeInstance
+from onadata.apps.office.models import OfficeInstance
 
 
 class OfficeViewset(viewsets.ModelViewSet):
