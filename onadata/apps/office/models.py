@@ -28,7 +28,7 @@ class District(models.Model):
 class Office(models.Model):
     name = models.CharField(max_length=255, help_text="Enter Office Name")
     district = models.ForeignKey(District, related_name="offices", null=True)
-    type = models.IntegerField(choices=TYPE_CHOICES, max_length=100, default=1)
+    type = models.CharField(choices=TYPE_CHOICES, max_length=100, default=1)
 
 
 class OfficeUser(models.Model):
