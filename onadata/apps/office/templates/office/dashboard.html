@@ -9,7 +9,7 @@
 
 <h2>Office List</h2>
 {% for office in offices %}
-    <a href="{% url 'office_detail' office.pk %}">{{ forloop.counter }}. {{ office.name }}</a>
+    <a href="{% url 'office_detail' office.pk %}">{{ forloop.counter }}. {{ office.name }}</a><br>
 {% endfor %}
 </body>
 </html>

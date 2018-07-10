@@ -36,7 +36,7 @@ class OfficeFormViewset(viewsets.ModelViewSet):
     queryset = OfficeForm.objects.select_related('office', 'form')
 
 
-class FormViewset(viewsets.ModelViewSet):
+class FormViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = FormSerializer
     queryset = Form.objects.all()
 

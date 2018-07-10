@@ -2,15 +2,47 @@ import logging
 import requests
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
 from onadata.apps.office.models import OfficeForm, Form, Office
-from .forms import OfficeForm
 from rest_framework.response import Response
-from .forms import OfficeForm as OfficeFormForm
+from .forms import OfficeFormForm as OfficeFormForm
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def token(request):
+
+    try:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = User.objects.get(username=username)
+        if user.check_password(password):
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                'token': token.key,
+                'user_id': user.pk,
+                'email': user.email,
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                 'error': 'Bad password',
+                 'msg': 'Invalid Password',
+                'data': request.POST
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    except Exception as e:
+        return Response({
+            'error': str(e),
+            'msg': 'Invalid Username and Password',
+            'data': request.POST
+        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Application(TemplateView):
@@ -82,6 +114,8 @@ class XFormView(CreateView):
 
 
 class FormView(CreateView):
+
     model = Form
     form_class = OfficeFormForm
     template_name = 'office/form.html'
+
