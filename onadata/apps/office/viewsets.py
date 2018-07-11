@@ -94,9 +94,12 @@ class TypeViewset(viewsets.ReadOnlyModelViewSet):
 class CustomXFormSubmissionApi(XFormSubmissionApi):
 
     def create(self, request, *args, **kwargs):
-        username = self.kwargs.get('username')
+        # username = self.kwargs.get('username')
+        username = self.request.user.username
 
-        office = self.request.query_params['fieldsight']
+        office = self.request.query_params.get('fieldsight',1)
+        print(office)
+        print("helooo")
 
         if self.request.user.is_anonymous():
             if username is None:

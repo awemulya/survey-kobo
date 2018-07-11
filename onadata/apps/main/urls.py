@@ -44,7 +44,7 @@ urlpatterns = patterns(
 
     # office urls
 
-    url(r"^(?P<username>\w+)/submission$",
+    url(r"^team/submission$",
         CustomXFormSubmissionApi.as_view({'post': 'create', 'head': 'create'}),
         name='submissions'),
 
