@@ -19,6 +19,31 @@
             {% for f in anusuchi_1 %}
                 {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
                 {{ f.xform.title }}
+
+                {% empty %}
+                 <p>No form</p>
+            {% endfor %}
+
+        </p>
+
+         <h3>Anusuchi 2</h3>
+        <p>
+            {% for f in anusuchi_2 %}
+                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
+                {{ f.xform.title }}
+                {% empty %}
+                 <p>No form</p>
+            {% endfor %}
+
+        </p>
+
+         <h3>Anusuchi 3</h3>
+        <p>
+            {% for f in anusuchi_3 %}
+                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
+                {{ f.xform.title }}
+                {% empty %}
+                 <p>No form</p>
             {% endfor %}
 
         </p>
