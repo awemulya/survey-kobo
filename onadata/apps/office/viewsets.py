@@ -96,7 +96,8 @@ class CustomXFormSubmissionApi(XFormSubmissionApi):
     def create(self, request, *args, **kwargs):
         # username = self.kwargs.get('username')
         username = self.request.user.username
-
+        if not username:
+            username = self.kwargs.get('username')
         office = self.request.query_params.get('fieldsight',1)
         print(office)
         print("helooo")
