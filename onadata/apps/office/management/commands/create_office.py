@@ -17,7 +17,7 @@ class Command(BaseCommand):
         office = [
             Office(
                     name=df['Office Name'][row],
-                    district=District.objects.get(id=20),
+                    district=District.objects.get(name=df['District Name'][row]),
                     type=df['Office Type'][row],
 
             ) for row in range(0, 225)

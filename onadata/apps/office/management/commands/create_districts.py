@@ -14,13 +14,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         df = pd.read_excel(sys.argv[3])
-        district = [
-            District(
-                    name=df['District Name'][row],
+        districts = df['District Name'].unique()
+        for district in districts:
+            District.objects.get_or_create(name=district)
 
-            ) for row in range(0, 225)
-        ]
-        district = District.objects.bulk_create(district)
-        if district:
-            self.stdout.write('Successfully created districts ..')
 

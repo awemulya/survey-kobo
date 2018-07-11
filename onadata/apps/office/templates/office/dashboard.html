@@ -32,7 +32,7 @@
 		        	</a>
 		        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			          	<a class="dropdown-item" href="#">गृह पृष्‍ठ</a>
-			          	<a class="dropdown-item" href="#">संगठनहरू</a>
+			          	<a class="dropdown-item" href="#">कार्यालयहरू</a>
 		        	</div>
 		      	</li>
 		    </ul>
@@ -114,8 +114,7 @@
                         <div class="col-md-12">
                             <div class="widget-info margin-top-large">
                                 <div class="widget-head">
-                                    <h3><a href="#" title="">संगठनहरू</a></h3>
-                                    <a href="#" title="" class="btn btn-xs btn-primary" target="_blank"><i class="la la-plus"></i> नयाँ संगठन</a>
+                                    <h3><a href="#" title="">कार्यालयहरू</a></h3>
                                 </div>
                                 <div class="widget-body">
                                     <div class="data-filter-wrap">
@@ -132,9 +131,9 @@
                                             <div class="form-group col-md-4">
                                                 <label for="inputOrganizationType"><strong>कार्यालय प्रकार छान्नुहोस्</strong></label>
                                                 <select class="form-control" id="inputOrganizationType">
-                                                    <option>सहकारी</option>
-                                                    <option>स्वैच्छिक संघ</option>
-                                                    <option>गैर-नाफा संगठन</option>
+                                                    {% for type in office_type %}
+                                                        <option>{{ type.get_type_display }}</option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
@@ -148,7 +147,7 @@
                                             <li class="col-sm-6 col-md-4 col-lg-3">
                                                 <a href="{% url 'office_detail' office.pk %}" class="org-item-wrap">
                                                     <h5>{{ office.name }}</h5>
-                                                    <span>नेपाल</span>
+                                                    <span>{{ office.district.name }}, नेपाल</span>
                                                 </a>
                                             </li>
                                          {% endfor %}

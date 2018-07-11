@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import  Form, Office, District
+from onadata.apps.office.models import Form, Office, District, Type
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
 
@@ -100,6 +100,8 @@ class Dashboard(TemplateView):
 
         context['offices'] = Office.objects.all().select_related('district')
         context['districts'] = District.objects.all()
+        context['office_type'] = Type.objects.all()
+
         return context
 
 

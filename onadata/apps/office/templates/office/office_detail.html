@@ -110,7 +110,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">गृह पृष्‍ठ</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">संगठनहरू</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">कार्यालयहरू</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ office.name }}</li>
                     </ol>
                 </nav>
@@ -134,12 +134,12 @@
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>S.N.</th>
-                                                                <th>Form Title</th>
-                                                                <th>Assigned Date</th>
-                                                                <th>Responses</th>
+                                                                <th>क्र.सं.</th>
+                                                                <th>फारम</th>
+                                                                <th>बुझाईएको मिती</th>
+                                                                <th>बुझाइएको संख्या</th>
 
-                                                                <th>Actions</th>
+{#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_1 %}
@@ -148,10 +148,10 @@
                                                                 <td>{{ f.xform.title }}</td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
-                                                                <td>
-                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
-                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
-                                                                </td>
+{#                                                                <td>#}
+{#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
+{#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}
+{#                                                                </td>#}
                                                             </tr>
 
                                                         {% endfor %}
@@ -168,11 +168,11 @@
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>S.N.</th>
-                                                                <th>Form Title</th>
-                                                                <th>Assigned Date</th>
-                                                                <th>Responses</th>
-                                                                <th>Actions</th>
+                                                                <th>क्र.सं.</th>
+                                                                <th>फारम</th>
+                                                                <th>बुझाईएको मिती</th>
+                                                                <th>बुझाइएको संख्या</th>
+{#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_2 %}
@@ -181,10 +181,10 @@
                                                                 <td>{{ f.xform.title }}</td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
-                                                                <td>
-                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
-                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
-                                                                </td>
+{#                                                                <td>#}
+{#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
+{#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}
+{#                                                                </td>#}
                                                             </tr>
 
                                                         {% endfor %}
@@ -202,11 +202,11 @@
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>S.N.</th>
-                                                                <th>Form Title</th>
-                                                                <th>Assigned Date</th>
-                                                                <th>Responses</th>
-                                                                <th>Actions</th>
+                                                                <th>क्र.सं.</th>
+                                                                <th>फारम</th>
+                                                                <th>बुझाईएको मिती</th>
+                                                                <th>बुझाइएको संख्या</th>
+{#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_3 %}
@@ -215,10 +215,10 @@
                                                                 <td>{{ f.xform.title }}</td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
-                                                                <td>
-                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
-                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
-                                                                </td>
+{#                                                                <td>#}
+{#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
+{#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}
+{#                                                                </td>#}
                                                             </tr>
 
                                                         {% endfor %}
