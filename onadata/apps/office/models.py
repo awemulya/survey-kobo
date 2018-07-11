@@ -8,7 +8,7 @@ from onadata.apps.logger.models.instance import Instance
 
 
 TYPE_CHOICES = [(1, 'Napi'), (2, 'Bhumi Sudhar'), (3, 'Malpot')]
-ANUSUCHI_CHOICES = [(1, 'First'), (2, 'Second'), (3, 'Third')]
+ANUSUCHI_CHOICES = [('1', 'First'), ('2', 'Second'), ('3', 'Third')]
 
 
 class Type(models.Model):

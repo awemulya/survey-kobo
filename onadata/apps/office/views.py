@@ -106,6 +106,22 @@ class OfficeDetailView(DetailView):
     model = Office
     context_object_name = 'office'
 
+    def get_context_data(self, **kwargs):
+        context = super(OfficeDetailView, self).get_context_data(**kwargs)
+        context['anusuchi_1'] = []
+        context['anusuchi_2'] = []
+        context['anusuchi_3'] = []
+        forms = Form.objects.all()
+        for f in forms:
+            if f.anusuchi == '1':
+                context['anusuchi_1'].append(f)
+            elif f.anusuchi == '2':
+                context['anusuchi_2'].append(f)
+            elif f.anusuchi == '3':
+                context['anusuchi_3'].append(f)
+
+        return context
+
 
 class XFormView(CreateView):
     model = XForm

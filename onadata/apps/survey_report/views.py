@@ -26,10 +26,11 @@ from formpack import FormPack
 
 def readable_xform_required(func):
     def _wrapper(request, username, id_string, *args, **kwargs):
-        owner = get_object_or_404(User, username=username)
-        xform = get_object_or_404(owner.xforms, id_string=id_string)
-        if not has_permission(xform, owner, request):
-            return HttpResponseForbidden(_(u'Not shared.'))
+        # owner = get_object_or_404(User, username=username)
+        # print(owner)
+        # xform = get_object_or_404(owner.xforms, id_string=id_string)
+        # if not has_permission(xform, owner, request):
+        #     return HttpResponseForbidden(_(u'Not shared.'))
         return func(request, username, id_string, *args, **kwargs)
     return _wrapper
 
@@ -177,11 +178,15 @@ def csv_export(request, username, id_string):
 
 
 @readable_xform_required
-def html_export(request, username, id_string):
+def html_export(request, username, id_string, office_id=None):
+    print('jajajjajajjajajajajddddddddddajaaj')
 
     limit = int(request.REQUEST.get('limit', 100))
 
-    cursor = get_instances_for_user_and_form(username, id_string)
+    # cursor = get_instances_for_user_and_form(username, id_string)
+    userform_id = '{}_{}'.format(username, id_string)
+    query = {'office': office_id, '_userform_id': userform_id, '_deleted_at': {'$exists': False}}
+    cursor = settings.MONGO_DB.instances.find(query)
     paginator = Paginator(cursor, limit, request=request)
 
     try:

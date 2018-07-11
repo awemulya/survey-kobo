@@ -13,6 +13,10 @@ urlpatterns = patterns(
     url(r"(?P<id_string>[^/]+)/export.xlsx$",
         'onadata.apps.survey_report.views.xlsx_export',
         name='formpack_xlsx_export'),
+
+    url(r"(?P<id_string>[^/]+)/(?P<office_id>[^/]+)/export.html$",
+        'onadata.apps.survey_report.views.html_export',
+        name='formpack_html_export'),
     url(r"(?P<id_string>[^/]+)/export.html$",
         'onadata.apps.survey_report.views.html_export',
         name='formpack_html_export'),

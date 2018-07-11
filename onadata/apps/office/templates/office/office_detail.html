@@ -1,13 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <meta charset="UTF-8">
+    <title>Forms</title>
 </head>
 <body>
-Name : {{ office.name }}<br>
-District : {{ office.district }}<br>
-Type: {{ office.get_type_display }}
+
+<div class="container">
+    <h2>Office Detail</h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+        Name : {{ office.name }}<br>
+        District : {{ office.district }}<br>
+        Type:  {{ object.type }}
+        <h3>Anusuchi 1</h3>
+        <p>
+            {% for f in anusuchi_1 %}
+                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
+                {{ f.xform.title }}
+            {% endfor %}
+
+        </p>
+
+    </ul>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </body>
 </html>
