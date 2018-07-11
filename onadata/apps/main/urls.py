@@ -44,10 +44,12 @@ urlpatterns = patterns(
 
     # office urls
 
+    url(r"^team/submission$",
+        CustomXFormSubmissionApi.as_view({'post': 'create', 'head': 'create'}),
+        name='submissions'),
     url(r"^(?P<username>\w+)/submission$",
         CustomXFormSubmissionApi.as_view({'post': 'create', 'head': 'create'}),
         name='submissions'),
-
     url(r'^office', include('onadata.apps.office.urls')),
 
     # main website views

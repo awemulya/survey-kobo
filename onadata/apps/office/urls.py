@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'api/',  include(router.urls)),
     url('api-token-auth/', token),
 
-    url(r'enketo1/(?P<pk>[\d+^/]+)', get_enketo_survey_links, name='links'),
+    url(r'enketo1/(?P<pk>[\d+^/]+)/(?P<office>[\d+^/]+)', get_enketo_survey_links, name='links'),
     url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
 
     url(r'/dashboard/$', Dashboard.as_view(), name='dashboard'),

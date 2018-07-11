@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import OfficeForm, Form, Office, District
+from onadata.apps.office.models import  Form, Office, District
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
 
@@ -55,10 +55,9 @@ class Application(TemplateView):
 
 
 @api_view(['GET'])
-def get_enketo_survey_links(request, pk):
-        office_form = OfficeForm.objects.get(pk=pk)
-        office = str(office_form.office.id)
-        xform = office_form.form
+def get_enketo_survey_links(request, pk, office):
+        office = str(office)
+        xform = XForm.objects.get(pk=pk)
         data = {
             'server_url': u'{}/{}'.format(
                 settings.KOBOCAT_URL.rstrip('/'),
