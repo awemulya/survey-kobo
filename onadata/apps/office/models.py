@@ -52,3 +52,9 @@ class Form(models.Model):
     xform = models.ForeignKey(XForm, related_name="form")
     type = ArrayField(models.IntegerField(choices=TYPE_CHOICES), null=True)
     anusuchi = models.CharField(choices=ANUSUCHI_CHOICES, max_length=100)
+
+    @staticmethod
+    def submission_count(self, office_id, force_update=False):
+        count = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=self.xform.id).count()
+        return count
+

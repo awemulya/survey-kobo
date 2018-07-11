@@ -3,6 +3,7 @@ import requests
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -112,7 +113,8 @@ class OfficeDetailView(DetailView):
         context['anusuchi_1'] = []
         context['anusuchi_2'] = []
         context['anusuchi_3'] = []
-        forms = Form.objects.all()
+        office = get_object_or_404(Office, id=self.kwargs['pk'])
+        forms = Form.objects.filter(type__icontains=office.type)
         for f in forms:
             if f.anusuchi == '1':
                 context['anusuchi_1'].append(f)
