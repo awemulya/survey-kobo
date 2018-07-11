@@ -1,28 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 
-<body>
 {#<a href="{% url 'form' %}">Create Form</a><br>#}
+{% load staticfiles %}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <script src="{% static 'assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+		<link href="https://fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <?php include 'header.php'; ?>
+
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <div class="dash-right">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="widget-info margin-top-large">
+                                <div class="widget-head">
+                                    <h3><a href="#" title="">संगठनहरू</a></h3>
+                                    <a href="#" title="" class="btn btn-xs btn-primary" target="_blank"><i class="la la-plus"></i> नयाँ संगठन</a>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="data-filter-wrap">
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputDistrict"><strong>जिल्ला छान्नुहोस्</strong></label>
+                                                <select class="form-control" id="inputDistrict">
+                                                    {% for district in districts %}
+                                                    <option>{{ district.name }}</option>
+                                                    {% endfor %}
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputOrganizationType"><strong>कार्यालय प्रकार छान्नुहोस्</strong></label>
+                                                <select class="form-control" id="inputOrganizationType">
+                                                    <option>सहकारी</option>
+                                                    <option>स्वैच्छिक संघ</option>
+                                                    <option>गैर-नाफा संगठन</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-default margin-top-large"><i class="la la-filter"></i> फिल्टर</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="row">
+                                        {% for office in offices %}
+
+                                            <li class="col-sm-6 col-md-4 col-lg-3">
+                                                <a href="{% url 'office_detail' office.pk %}" class="org-item-wrap">
+                                                    <h5>{{ office.name }}</h5>
+                                                    <span>नेपाल</span>
+                                                </a>
+                                            </li>
+                                         {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-<div class="container">
 
-<ul class="list-group">
-<h2>Office List</h2>
+        <?php include 'footer.php';?>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>-->
+        <script>window.jQuery || document.write('<script src="{% static 'assets/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
+		<script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/plugins.js' %}"></script>
+        <script>
+        	$(document).ready(function(){
+                //Height Fix
+                wrapperHeightFix();
+                window.onresize = function(event) {
+                    wrapperHeightFix();
+                }
 
-    {% for office in offices %}
-    <li class="list-group-item"><a href="{% url 'office_detail' office.pk %}">{{ forloop.counter }}. {{ office.name }}</a></li>
+                function wrapperHeightFix() {
+                    vph = $(window).height();
+                    if($(document).width() > 479) {
+                        vph = vph - ($("#header").height() + 16);
+                        $(".dash-right").css("min-height", vph);
+                    }
+                }
+        	});
+        </script>
 
-    {% endfor %}
-
-</ul>
-
-</div>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
+</html>
 
 </body>
 </html>

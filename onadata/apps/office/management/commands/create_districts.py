@@ -1,21 +1,26 @@
 from django.core.management.base import BaseCommand
 
+import sys
+import argparse
+import pandas as pd
 from onadata.apps.office.models import District
 
 
 class Command(BaseCommand):
-    help = 'Create default districts'
+    help = 'Create default districts from district xlsx file'
+
+    def add_arguments(self, parser):
+        parser.add_argument("-f", type=argparse.FileType())
 
     def handle(self, *args, **options):
-        districts_list = ["Kathmandu",
-                          "Lalitpur",
-                          "Bhaktapur",
-                          "Jhapa",
-                          "Morang",
-                          "Sunsari",
-                          "Illam",
-                          ]
-        for district in districts_list:
-            new_district, created = District.objects.get_or_create(name=district)
-            if created:
-                self.stdout.write('Successfully created districts.. "%s"' % new_district)
+        df = pd.read_excel(sys.argv[3])
+        district = [
+            District(
+                    name=df['District Name'][row],
+
+            ) for row in range(0, 225)
+        ]
+        district = District.objects.bulk_create(district)
+        if district:
+            self.stdout.write('Successfully created districts ..')
+

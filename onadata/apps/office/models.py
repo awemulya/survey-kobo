@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -7,8 +9,8 @@ from onadata.apps.logger.models.xform import XForm
 from onadata.apps.logger.models.instance import Instance
 
 
-TYPE_CHOICES = [(1, 'Napi'), (2, 'Bhumi Sudhar'), (3, 'Malpot')]
-ANUSUCHI_CHOICES = [('1', 'First'), ('2', 'Second'), ('3', 'Third')]
+TYPE_CHOICES = [(1, 'नापी'), (2, 'भुमि सुधार'), (3, 'मालपोत')]
+ANUSUCHI_CHOICES = [('1', 'पहिलो'), ('2', 'दोस्रो'), ('3', 'तेस्रो')]
 
 
 class Type(models.Model):

@@ -1,56 +1,383 @@
+{% load staticfiles %}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <script src="{% static 'assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+		<link href="https://fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <?php include 'header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <meta charset="UTF-8">
-    <title>Forms</title>
-</head>
-<body>
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्‍ठ</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">संगठनहरू</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ office.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-12">
+                <div class="dash-right">
+                    <div class="row">
 
-<div class="container">
-    <h2>Office Detail</h2>
-    <ul class="list-group">
-        <li class="list-group-item">
-        Name : {{ office.name }}<br>
-        District : {{ office.district }}<br>
-        Type:  {{ object.type }}
-        <h3>Anusuchi 1</h3>
-        <p>
-            {% for f in anusuchi_1 %}
-                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
-                {{ f.xform.title }}
+                        <div class="col-md-12">
+                            <div class="widget-info margin-top-large">
+                                <div class="widget-head">
+                                    <h5><a href="#" title="">{{ office.name }}</a></h5>
+                                    <p></p>
+                                </div>
+                                <div class="widget-body">
+                                    <ul id="accordion" class="collapseableWrap">
+                                        <li>
+                                            <div class="collapseHeader" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">अनुसुची - १ <i class="la la-plus-circle"></i></div>
+                                            <div id="collapseOne" class="collapse collapseBody" aria-labelledby="headingOne" data-parent="#accordion">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover margin-top">
+                                                        <thead class="thead-default">
+                                                            <tr>
+                                                                <th>S.N.</th>
+                                                                <th>Form Title</th>
+                                                                <th>Assigned Date</th>
+                                                                <th>Responses</th>
+                                                                <th>Education Material</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        {% for f in anusuchi_1 %}
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>{{ f.xform.title }}</td>
+                                                                <td>{{ f.xform.date_created }}</td>
+                                                                <td>10</td>
+                                                                <td>
+                                                                    <a href="#" class="badge badge-info" data-toggle="modal" data-target="#modalMaterial1"><i class="la la-book"></i> Materials</a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="modalMaterial1" tabindex="-1" role="dialog" aria-labelledby="modalMaterial1Title" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalMaterial1Title">Education Material</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMTitle">Title</label>
+                                                                                            <input type="text" class="form-control" id="inputEMTitle">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMText">Text</label>
+                                                                                            <textarea class="form-control" id="inputEMText" rows="5"></textarea>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Saved Images</label>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload Images</label>
+                                                                                            <div data-bind="fileDrag: fileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" data-bind="fileInput: fileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept="image/*">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload PDF</label>
+                                                                                            <div data-bind="fileDrag: multiFileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: multiFileData().dataURL }, visible: multiFileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" multiple data-bind="fileInput: multiFileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept=".pdf">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
+                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
+                                                                </td>
+                                                            </tr>
 
-                {% empty %}
-                 <p>No form</p>
-            {% endfor %}
+                                                        {% endfor %}
 
-        </p>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">अनुसुची - २ <i class="la la-plus-circle"></i></div>
+                                            <div id="collapseTwo" class="collapse collapseBody" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                                                                <div class="table-responsive">
+                                                    <table class="table table-hover margin-top">
+                                                        <thead class="thead-default">
+                                                            <tr>
+                                                                <th>S.N.</th>
+                                                                <th>Form Title</th>
+                                                                <th>Assigned Date</th>
+                                                                <th>Responses</th>
+                                                                <th>Education Material</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        {% for f in anusuchi_2 %}
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>{{ f.xform.title }}</td>
+                                                                <td>{{ f.xform.date_created }}</td>
+                                                                <td>10</td>
+                                                                <td>
+                                                                    <a href="#" class="badge badge-info" data-toggle="modal" data-target="#modalMaterial1"><i class="la la-book"></i> Materials</a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="modalMaterial1" tabindex="-1" role="dialog" aria-labelledby="modalMaterial1Title" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalMaterial1Title">Education Material</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMTitle">Title</label>
+                                                                                            <input type="text" class="form-control" id="inputEMTitle">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMText">Text</label>
+                                                                                            <textarea class="form-control" id="inputEMText" rows="5"></textarea>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Saved Images</label>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload Images</label>
+                                                                                            <div data-bind="fileDrag: fileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" data-bind="fileInput: fileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept="image/*">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload PDF</label>
+                                                                                            <div data-bind="fileDrag: multiFileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: multiFileData().dataURL }, visible: multiFileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" multiple data-bind="fileInput: multiFileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept=".pdf">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
+                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
+                                                                </td>
+                                                            </tr>
 
-         <h3>Anusuchi 2</h3>
-        <p>
-            {% for f in anusuchi_2 %}
-                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
-                {{ f.xform.title }}
-                {% empty %}
-                 <p>No form</p>
-            {% endfor %}
+                                                        {% endfor %}
 
-        </p>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-         <h3>Anusuchi 3</h3>
-        <p>
-            {% for f in anusuchi_3 %}
-                {{ f.get_anusuchi_display }}   <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">Submission</a><br>
-                {{ f.xform.title }}
-                {% empty %}
-                 <p>No form</p>
-            {% endfor %}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">अनुसुची - ३ <i class="la la-plus-circle"></i></div>
+                                            <div id="collapseThree" class="collapse collapseBody" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                                                            <div class="table-responsive">
+                                                    <table class="table table-hover margin-top">
+                                                        <thead class="thead-default">
+                                                            <tr>
+                                                                <th>S.N.</th>
+                                                                <th>Form Title</th>
+                                                                <th>Assigned Date</th>
+                                                                <th>Responses</th>
+                                                                <th>Education Material</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        {% for f in anusuchi_3 %}
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>{{ f.xform.title }}</td>
+                                                                <td>{{ f.xform.date_created }}</td>
+                                                                <td>{{ f.xform.submission_count }}</td>
+                                                                <td>
+                                                                    <a href="#" class="badge badge-info" data-toggle="modal" data-target="#modalMaterial1"><i class="la la-book"></i> Materials</a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="modalMaterial1" tabindex="-1" role="dialog" aria-labelledby="modalMaterial1Title" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalMaterial1Title">Education Material</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMTitle">Title</label>
+                                                                                            <input type="text" class="form-control" id="inputEMTitle">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMText">Text</label>
+                                                                                            <textarea class="form-control" id="inputEMText" rows="5"></textarea>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Saved Images</label>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <img src="{% static 'assets/img/img-gallery-large.png' %}" alt="">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload Images</label>
+                                                                                            <div data-bind="fileDrag: fileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" data-bind="fileInput: fileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept="image/*">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEMUploadImages">Upload PDF</label>
+                                                                                            <div data-bind="fileDrag: multiFileData">
+                                                                                              <div class="image-upload-preview">
+                                                                                                <img data-bind="attr: { src: multiFileData().dataURL }, visible: multiFileData().dataURL" class="margin-bottom">
+                                                                                              </div>
+                                                                                              <div class="image-upload-input">
+                                                                                                <input type="file" multiple data-bind="fileInput: multiFileData, , customFileInput: { buttonClass: 'btn btn-success', fileNameClass: 'form-control', onClear: onClear, }" accept=".pdf">
+                                                                                              </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>
+                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>
+                                                                </td>
+                                                            </tr>
 
-        </p>
+                                                        {% endfor %}
 
-    </ul>
-</div>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-</body>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <?php include 'footer.php';?>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>-->
+        <script>window.jQuery || document.write('<script src="{% static 'assets/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
+		<script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/plugins.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                //Height Fix
+                wrapperHeightFix();
+                window.onresize = function(event) {
+                    wrapperHeightFix();
+                }
+
+                function wrapperHeightFix() {
+                    vph = $(window).height();
+                    if($(document).width() > 479) {
+                        vph = vph - ($("#header").height() + 16);
+                        $(".dash-right").css("min-height", vph);
+                    }
+                }
+            });
+        </script>
+
+    </body>
 </html>
