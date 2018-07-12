@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 import logging
 import requests
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -11,7 +13,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import Form, Office, District, Type
+from onadata.apps.office.models import Form, Office, District, Type, TYPE_CHOICES
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
 
@@ -95,14 +97,20 @@ def get_enketo_survey_links(request, pk, office):
 class Dashboard(TemplateView):
     template_name = 'office/dashboard.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(Dashboard, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
 
-        context['offices'] = Office.objects.all().select_related('district')
-        context['districts'] = District.objects.all()
-        context['office_type'] = Type.objects.all()
+        districts = District.objects.all()
+        office_type = Type.objects.all()
 
-        return context
+        if request.GET.get('dist'):
+            district = request.GET.get('dist')
+            type = request.GET.get('o_type')
+            office_type = type.encode('utf8')
+            type_choices = {'नापी': 1, 'भुमि सुधार': 2, 'मालपोत': 3}
+            offices = Office.objects.all().select_related('district').filter(district__name=district, type=type_choices[office_type])
+        else:
+            offices = Office.objects.all().select_related('district')
+        return render(request, self.template_name, {'offices': offices, 'districts': districts, 'office_type': office_type })
 
 
 class OfficeDetailView(DetailView):
@@ -115,7 +123,7 @@ class OfficeDetailView(DetailView):
         context['anusuchi_2'] = []
         context['anusuchi_3'] = []
         office = get_object_or_404(Office, id=self.kwargs['pk'])
-        forms = Form.objects.filter(type__icontains=office.type)
+        forms = Form.objects.filter(type__icontains=office.type).select_related('xform')
         for f in forms:
             if f.anusuchi == '1':
                 context['anusuchi_1'].append(f)
@@ -138,4 +146,3 @@ class FormView(CreateView):
     model = Form
     form_class = OfficeFormForm
     template_name = 'office/form.html'
-

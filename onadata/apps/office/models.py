@@ -16,6 +16,9 @@ ANUSUCHI_CHOICES = [('1', 'पहिलो'), ('2', 'दोस्रो'), ('3',
 class Type(models.Model):
     type = models.IntegerField(choices=TYPE_CHOICES)
 
+    def __str__(self):
+        return str(self.type)
+
 
 class District(models.Model):
     name = models.CharField(max_length=100)
