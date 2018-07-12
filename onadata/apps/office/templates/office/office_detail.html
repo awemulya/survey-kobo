@@ -144,8 +144,9 @@
                                                         </thead>
                                                         {% for f in anusuchi_1 %}
                                                             <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>{{ f.xform.title }}</td>
+                                                                <th scope="row" >1</th>
+
+                                                              <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
 {#                                                                <td>#}
@@ -178,7 +179,7 @@
                                                         {% for f in anusuchi_2 %}
                                                             <tr>
                                                                 <th scope="row">1</th>
-                                                                <td>{{ f.xform.title }}</td>
+                                                                <td><a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
 {#                                                                <td>#}
@@ -212,7 +213,7 @@
                                                         {% for f in anusuchi_3 %}
                                                             <tr>
                                                                 <th scope="row">1</th>
-                                                                <td>{{ f.xform.title }}</td>
+                                                                <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
 {#                                                                <td>#}
