@@ -128,23 +128,23 @@
                                 <div class="widget-body">
                                     <ul id="accordion" class="collapseableWrap">
                                         <li>
-                                            <div class="collapseHeader" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">अनुसुची - १ <i class="la la-plus-circle"></i></div>
+                                            <div class="collapseHeader" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><strong>अनुसुची - १ </strong><i class="la la-plus-circle"></i></div>
                                             <div id="collapseOne" class="collapse collapseBody" aria-labelledby="headingOne" data-parent="#accordion">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>क्र.सं.</th>
-                                                                <th>फारम</th>
-                                                                <th>बुझाईएको मिती</th>
-                                                                <th>बुझाइएको संख्या</th>
+                                                                <th><strong>क्र.सं.</strong></th>
+                                                                <th><strong>फारम</strong></th>
+                                                                <th><strong>बुझाईएको मिती</strong></th>
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
 
 {#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_1 %}
                                                             <tr>
-                                                                <th scope="row" >1</th>
+                                                                <th scope="row" ><strong>{{ forloop.counter }}</strong></th>
 
                                                               <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
@@ -163,22 +163,22 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">अनुसुची - २ <i class="la la-plus-circle"></i></div>
+                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"><strong>अनुसुची - २ </strong><i class="la la-plus-circle"></i></div>
                                             <div id="collapseTwo" class="collapse collapseBody" aria-labelledby="headingTwo" data-parent="#accordion">
                                                                                                 <div class="table-responsive">
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>क्र.सं.</th>
-                                                                <th>फारम</th>
-                                                                <th>बुझाईएको मिती</th>
-                                                                <th>बुझाइएको संख्या</th>
+                                                                <th><strong>क्र.सं.</strong></th>
+                                                                <th><strong>फारम</strong></th>
+                                                                <th><strong>बुझाईएको मिती</strong></th>
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
 {#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_2 %}
                                                             <tr>
-                                                                <th scope="row">1</th>
+                                                                <th scope="row"><strong>{{ forloop.counter }}</strong></th>
                                                                 <td><a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>
@@ -197,22 +197,22 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">अनुसुची - ३ <i class="la la-plus-circle"></i></div>
+                                            <div class="collapseHeader" id="headingTwo" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"><strong>अनुसुची - ३</strong> <i class="la la-plus-circle"></i></div>
                                             <div id="collapseThree" class="collapse collapseBody" aria-labelledby="headingTwo" data-parent="#accordion">
                                                                                             <div class="table-responsive">
                                                     <table class="table table-hover margin-top">
                                                         <thead class="thead-default">
                                                             <tr>
-                                                                <th>क्र.सं.</th>
-                                                                <th>फारम</th>
-                                                                <th>बुझाईएको मिती</th>
-                                                                <th>बुझाइएको संख्या</th>
+                                                                <th><strong>क्र.सं.</strong></th>
+                                                                <th><strong>फारम</strong></th>
+                                                                <th><strong>बुझाईएको मिती</strong></th>
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
 {#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
                                                         {% for f in anusuchi_3 %}
                                                             <tr>
-                                                                <th scope="row">1</th>
+                                                                <th scope="row"><strong>{{ forloop.counter }}</strong></th>
                                                                 <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{{ f.xform.submission_count }}</td>

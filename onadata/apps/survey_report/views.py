@@ -179,7 +179,6 @@ def csv_export(request, username, id_string):
 
 @readable_xform_required
 def html_export(request, username, id_string, office_id=None):
-    print('jjjjjjjjjjjjjjjjjjjjjjjjjjjj')
 
     limit = int(request.REQUEST.get('limit', 100))
 
