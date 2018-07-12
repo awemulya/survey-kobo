@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load filters %}
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -137,8 +139,7 @@
                                                                 <th><strong>क्र.सं.</strong></th>
                                                                 <th><strong>फारम</strong></th>
                                                                 <th><strong>बुझाईएको मिती</strong></th>
-{#                                                                <th><strong>बुझाइएको संख्या</strong></th>#}
-                                                                <!--<th>बुझाइएको संख्या</th>-->
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
 
 {#                                                                <th>Actions</th>#}
                                                             </tr>
@@ -149,7 +150,7 @@
 
                                                               <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
-                                                                <!--<td>{{ f.xform.submission_count }}</td>-->
+                                                                <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}
 {#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
 {#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}
@@ -173,6 +174,8 @@
                                                                 <th><strong>क्र.सं.</strong></th>
                                                                 <th><strong>फारम</strong></th>
                                                                 <th><strong>बुझाईएको मिती</strong></th>
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
+
 {#                                                                <th>Actions</th>#}
                                                             </tr>
                                                         </thead>
@@ -181,7 +184,7 @@
                                                                 <th scope="row"><strong>{{ forloop.counter }}</strong></th>
                                                                 <td><a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
-                                                                <!--<td>{{ f.xform.submission_count }}</td>-->
+                                                                <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}
 {#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
 {#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}
@@ -206,7 +209,7 @@
                                                                 <th><strong>क्र.सं.</strong></th>
                                                                 <th><strong>फारम</strong></th>
                                                                 <th><strong>बुझाईएको मिती</strong></th>
-{#                                                                <th><strong>बुझाइएको संख्या</strong></th>#}
+                                                                <th><strong>बुझाइएको संख्या</strong></th>
 
 {#                                                                <th>Actions</th>#}
                                                             </tr>
@@ -216,7 +219,7 @@
                                                                 <th scope="row"><strong>{{ forloop.counter }}</strong></th>
                                                                 <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
-                                                                <!--<td>{{ f.xform.submission_count }}</td>-->
+                                                                <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}
 {#                                                                    <a class="badge badge-danger" href="#" role="button"><i class="la la-close"></i> Undeploy</a>#}
 {#                                                                    <a class="badge badge-success" href="#" role="button"><i class="la la-edit"></i> Edit</a>#}

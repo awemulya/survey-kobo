@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'/office-detail/(?P<pk>[\d+^/]+)/$', OfficeDetailView.as_view(), name='office_detail'),
     url(r'/xform-create/$', XFormView.as_view(), name='xform'),
     url(r'/form-create/$', FormView.as_view(), name='form'),
-
+    url(r'/form-create/$', FormView.as_view(), name='form'),
 
 ]
