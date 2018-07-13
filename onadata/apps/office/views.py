@@ -101,15 +101,15 @@ class Dashboard(TemplateView):
 
         districts = District.objects.all()
         office_type = Type.objects.all()
+        offices = Office.objects.all().select_related('district')
 
         if request.GET.get('dist'):
             district = request.GET.get('dist')
-            type = request.GET.get('o_type')
-            office_type = type.encode('utf8')
+            type = request.GET.get('type')
+            type = type.encode('utf8')
             type_choices = {'नापी': 1, 'भुमि सुधार': 2, 'मालपोत': 3}
-            offices = Office.objects.all().select_related('district').filter(district__name=district, type=type_choices[office_type])
-        else:
-            offices = Office.objects.all().select_related('district')
+            offices = Office.objects.all().select_related('district').filter(district__name=district, type=type_choices[type])
+
         return render(request, self.template_name, {'offices': offices, 'districts': districts, 'office_type': office_type })
 
 
