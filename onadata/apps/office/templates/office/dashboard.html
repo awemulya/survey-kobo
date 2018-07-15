@@ -26,7 +26,7 @@
 
                                                 <select class="form-control" id="inputDistrict" name="dist">
                                                     {% for district in districts %}
-                                                    <option>{{ district.name }}</option>
+                                                    <option value="{{ district.name }}" {% if request.GET.dist == district.name %}selected{%endif%}>{{ district.name }}</option>
                                                     {% endfor %}
 
                                                 </select>
@@ -35,7 +35,7 @@
                                                 <label for="inputOrganizationType"><strong>कार्यालय प्रकार छान्नुहोस्</strong></label>
                                                 <select class="form-control" id="inputOrganizationType" name="type">
                                                     {% for type in office_type %}
-                                                        <option>{{ type.get_type_display }}</option>
+                                                        <option value="{{ type.get_type_display }}" {% if request.GET.type == type.get_type_display %}selected{%endif%}>{{ type.get_type_display }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
