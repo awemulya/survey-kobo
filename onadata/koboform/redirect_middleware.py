@@ -42,10 +42,10 @@ class ConditionalRedirects(object):
 
         if koboform.active and koboform.autoredirect:
             login_url = koboform.redirect_url(login_url)
-            if view_name is 'login':
-                return HttpResponseRedirect(koboform.login_url(next_kobocat_url='/'))
-            if view_name is 'logout':
-                return HttpResponseRedirect(koboform.redirect_url('/accounts/logout/'))
+            # if view_name is 'login':
+            #     return HttpResponseRedirect(koboform.login_url(next_kobocat_url='/'))
+            # if view_name is 'logout':
+            #     return HttpResponseRedirect(koboform.redirect_url('/accounts/logout/'))
             if view_name is 'FHRegistrationView':
                 return HttpResponseRedirect(koboform.redirect_url('/accounts/register/'))
 

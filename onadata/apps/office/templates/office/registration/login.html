@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -11,9 +10,9 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-		<link rel="stylesheet" href="assets/css/style.css">
-        <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <script src="{% static 'assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
 		<link href="https://fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
     </head>
     <body>
@@ -22,25 +21,25 @@
         <![endif]-->
 
         <div class="login-bg">
-            <img src="assets/img/login-bg.jpg">
+            <img src="{% static 'assets/img/login-bg.jpg' %}">
         </div>
 
         <div class="container-fluid">
             <div class="login-wrap">
                 <div class="login-header">
-                    <img src="assets/img/logo.png" alt="" width="100">
+                    <img src="{% static 'assets/img/logo.png' %}" alt="" width="100">
                     <h4>नेपाल सरकार</h4>
                     <h3>कृषि, भूमि व्यवस्था तथा सहकारी मन्त्रालय</h3>
                 </div>
                 <div class="login-body">
-                    <form>
+                    {% include 'form_error.html' %}
+
+                    <form action="" method="post"> {% csrf_token %}
                         <div class="form-group">
-                            <label for="inputEmail"><strong>ईमेल :</strong></label>
-                            <input type="email" class="form-control" id="inputEmail">
-                        </div>
+                        <label for="id_username"> <strong>ईमेल :</strong></label>
+                            <input id="id_username" maxlength="254" name="username" type="text" class="form-control">                        </div>
                         <div class="form-group">
-                            <label for="inputPassword"><strong>पासवर्ड :</strong></label>
-                            <input type="password" class="form-control" id="inputPassword">
+                          <label for="id_password"><strong>पासवर्ड :</strong></label> <input id="id_password" name="password" type="password" class="form-control">
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -67,9 +66,9 @@
 
         <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>-->
-        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-		<script src="assets/js/vendor/popper.min.js"></script>
-        <script src="assets/js/vendor/bootstrap.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{% static 'assets/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
+		<script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
 		<script>
             $(document).ready(function(){
                 //Height Fix

@@ -49,15 +49,15 @@ else:
 
 MEDIA_URL= '/' + os.environ.get('KOBOCAT_MEDIA_URL', 'media').strip('/') + '/'
 STATIC_URL = '/static/'
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/login_redirect/'
+# LOGIN_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/login_redirect/'
 
 if os.environ.get('KOBOCAT_ROOT_URI_PREFIX'):
     KOBOCAT_ROOT_URI_PREFIX= '/' + os.environ['KOBOCAT_ROOT_URI_PREFIX'].strip('/') + '/'
     MEDIA_URL= KOBOCAT_ROOT_URI_PREFIX + MEDIA_URL.lstrip('/')
     STATIC_URL= KOBOCAT_ROOT_URI_PREFIX + STATIC_URL.lstrip('/')
-    LOGIN_URL= KOBOCAT_ROOT_URI_PREFIX + LOGIN_URL.lstrip('/')
-    LOGIN_REDIRECT_URL= KOBOCAT_ROOT_URI_PREFIX + LOGIN_REDIRECT_URL.lstrip('/')
+    # LOGIN_URL= KOBOCAT_ROOT_URI_PREFIX + LOGIN_URL.lstrip('/')
+    # LOGIN_REDIRECT_URL= KOBOCAT_ROOT_URI_PREFIX + LOGIN_REDIRECT_URL.lstrip('/')
 
 if TESTING_MODE:
     MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'test_media/')
@@ -88,7 +88,7 @@ STATICFILES_DIRS += ( os.path.join(TEMPLATE_OVERRIDE_ROOT_DIR, 'static'), )
 KOBOFORM_SERVER=os.environ.get("KOBOFORM_SERVER", "localhost")
 KOBOFORM_SERVER_PORT=os.environ.get("KOBOFORM_SERVER_PORT", "8000")
 KOBOFORM_SERVER_PROTOCOL=os.environ.get("KOBOFORM_SERVER_PROTOCOL", "http")
-KOBOFORM_LOGIN_AUTOREDIRECT=True
+KOBOFORM_LOGIN_AUTOREDIRECT=False
 KOBOFORM_URL=os.environ.get("KOBOFORM_URL", "http://localhost:8000")
 
 TEMPLATE_CONTEXT_PROCESSORS = (
