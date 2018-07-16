@@ -4,8 +4,10 @@ import logging
 import requests
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -13,7 +15,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import Form, Office, District, Type, TYPE_CHOICES
+from onadata.apps.office.models import Form, Office, District, Type
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
 
@@ -94,7 +96,20 @@ def get_enketo_survey_links(request, pk, office):
         return Response(links['offline_url']+"?fieldsight="+office)
 
 
-class Dashboard(TemplateView):
+class LoginRequiredMixin(object):
+    """
+    View mixin which verifies that the user has authenticated.
+
+    NOTE:
+        This should be the left-most mixin of a view.
+    """
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+
+
+class Dashboard(LoginRequiredMixin, TemplateView):
     template_name = 'office/dashboard.html'
 
     def get(self, request, *args, **kwargs):
@@ -113,7 +128,7 @@ class Dashboard(TemplateView):
         return render(request, self.template_name, {'offices': offices, 'districts': districts, 'office_type': office_type })
 
 
-class OfficeDetailView(DetailView):
+class OfficeDetailView(LoginRequiredMixin, DetailView):
     model = Office
     context_object_name = 'office'
 
