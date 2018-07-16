@@ -37,7 +37,7 @@
 {% block javascript %}
 {{ block.super }}
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery.dataTables.pagination.js"></script>
+{#<script type="text/javascript" src="{{STATIC_URL}}js/jquery.dataTables.pagination.js"></script>#}
 <script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/sammy-0.7.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/sammy-plugins/sammy.meld-0.7.1.min.js"></script>
 
@@ -51,7 +51,7 @@ var languages = [];
 // TODO: this re should only accept valid js variable names so numbers/letter/underscore
 var cleanRe = /[\[\]\/]/g; // regular expression used to clean names with slashes
 var cleanReplacement = '_';
-var positionTpl = "{% trans 'Record {pos} of {total}' %}";
+{#var positionTpl = "{% trans 'Record {pos} of {total}' %}";#}
 var numRecords = null;
 var browsePos = null;
 
@@ -105,20 +105,6 @@ var canEdit = {% if can_edit %}true;{% else %}false;{% endif %}
       this.get('#delete/:id', function(context) {
 
           var id = this.params['id'];
-          var next = $('li.next').children('a').attr('href');
-          next = next.replace("#/", "");
-
-          var prev = $('li.prev').children('a').attr('href');
-          prev = prev.replace("#/", "");
-          var redirect_route = '#/';
-
-          if(next > 0 && next != id ){
-              redirect_route = '#/'  + next;
-          }
-          else if(prev > 0 && prev != id ){
-              redirect_route = '#/'  + prev;
-          }
-
           deleteData(context, id, redirect_route);
       });
       this.bind('error', {}, function(){
