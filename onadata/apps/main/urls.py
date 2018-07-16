@@ -11,6 +11,7 @@ from onadata.apps.api.urls import BriefcaseApi
 from django.contrib import admin
 
 from onadata.apps.office.viewsets import CustomXFormSubmissionApi
+from django.contrib.auth import views as auth_views
 
 admin.autodiscover()
 
@@ -27,6 +28,9 @@ urlpatterns = patterns(
     url(r'^api/v1', RedirectView.as_view(url='/api/v1/')),
 
     # django default stuff
+    url(r'^accounts/logout/', 'django.contrib.auth.views.logout',
+        {'next_page': '/'}, name='logout'),
+    url(r'^accounts/login/$', auth_views.login, {'template_name': 'office/registration/login.html'}, name='login'),
     url(r'^accounts/', include('onadata.apps.main.registration_urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
