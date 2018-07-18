@@ -15,7 +15,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 from onadata.apps.logger.models import XForm
-from onadata.apps.office.models import Form, Office, District, Type
+from onadata.apps.office.models import Form, Office, District, Type, OfficeInstance
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
 
@@ -148,6 +148,17 @@ class OfficeDetailView(LoginRequiredMixin, DetailView):
                 context['anusuchi_3'].append(f)
 
         return context
+
+
+def submission(request, username, id_string, office_id=None):
+    template_name = 'office/submission.html'
+    username = username
+    id_string = id_string
+    xform = XForm.objects.get(id_string=id_string)
+    instance = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=xform.id)
+    office = Office.objects.get(id=office_id)
+    data = {'office': office, 'instance': instance, 'username': username, 'id_string': id_string}
+    return render(request, template_name, data)
 
 
 class XFormView(CreateView):
