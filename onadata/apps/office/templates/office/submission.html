@@ -41,7 +41,6 @@
                                                                 <th><strong>दृश्य</strong></th>
                                                                 <th><strong>प्रयोगकर्ता</strong></th>
                                                                 <th><strong>बुझाईएको मिती</strong></th>
-                                                                <th><strong>बुझाइएको संख्या</strong></th>
 
                                                             </tr>
                                                         </thead>
@@ -52,7 +51,6 @@
                                                                 <td><a href="{{ submission_url }}#/{{ submission_id|stringformat:'d' }}">Open</a></td>
                                                                  <td>{{ inst.instance.user.username }}</td>
                                                                 <td>{{ inst.instance.date_created }}</td>
-                                                                <td>{{ inst.count }}</td>
                                                             {% endfor %}
                                                             </tr>
                                                     </table>
