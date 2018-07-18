@@ -50,9 +50,8 @@
                                                                 {% url 'onadata.apps.viewer.views.instance' username id_string  as submission_url %}
 
                                                                 <td><a href="{{ submission_url }}#/{{ submission_id|stringformat:'d' }}">Open</a></td>
-
-                                                                 <td>{{ inst.user.username }}</td>
-                                                                <td>{{ inst.date_created }}</td>
+                                                                 <td>{{ inst.instance.user.username }}</td>
+                                                                <td>{{ inst.instance.date_created }}</td>
                                                                 <td>{{ inst.count }}</td>
                                                             {% endfor %}
                                                             </tr>
