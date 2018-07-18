@@ -46,7 +46,7 @@
                                                         </thead>
                                                             <tr>
                                                              {% for inst in instance %}
-                                                                {% url 'onadata.apps.viewer.views.instance' username id_string  as submission_url %}
+                                                                {% url 'onadata.apps.viewer.views.instance' inst.instance.user.username inst.instance.xform.id_string  as submission_url %}
 
                                                                 <td><a href="{{ submission_url }}#/{{ submission_id|stringformat:'d' }}">Open</a></td>
                                                                  <td>{{ inst.instance.user.username }}</td>

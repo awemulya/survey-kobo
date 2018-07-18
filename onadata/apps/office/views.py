@@ -152,8 +152,6 @@ class OfficeDetailView(LoginRequiredMixin, DetailView):
 
 def submission(request, username, id_string, office_id=None):
     template_name = 'office/submission.html'
-    username = username
-    id_string = id_string
     xform = XForm.objects.get(id_string=id_string)
     instance = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=xform.id)
     office = Office.objects.get(id=office_id)
