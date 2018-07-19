@@ -32,6 +32,7 @@ urlpatterns = patterns(
         {'next_page': '/'}, name='logout'),
     url(r'^accounts/login/$', auth_views.login, {'template_name': 'office/registration/login.html'}, name='login'),
     url(r'^accounts/', include('onadata.apps.main.registration_urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
