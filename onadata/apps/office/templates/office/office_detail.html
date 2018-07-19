@@ -51,7 +51,7 @@
                                                             <tr>
                                                                 <th scope="row" ><strong>{{ forloop.counter }}</strong></th>
 
-                                                              <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
+                                                              <td>  <a href="{% url 'submission' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}
@@ -85,7 +85,7 @@
                                                         {% for f in anusuchi_2 %}
                                                             <tr>
                                                                 <th scope="row"><strong>{{ forloop.counter }}</strong></th>
-                                                                <td><a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
+                                                                <td><a href="{% url 'submission' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}
@@ -120,7 +120,7 @@
                                                         {% for f in anusuchi_3 %}
                                                             <tr>
                                                                 <th scope="row"><strong>{{ forloop.counter }}</strong></th>
-                                                                <td>  <a href="{% url 'formpack_html_export' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
+                                                                <td>  <a href="{% url 'submission' f.xform.user.username f.xform.id_string office.pk %}">{{ f.xform.title }}</a></td>
                                                                 <td>{{ f.xform.date_created }}</td>
                                                                 <td>{%  submission_count f office.pk %}</td>
 {#                                                                <td>#}

@@ -26,6 +26,7 @@ urlpatterns = [
     url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
 
     url(r'/dashboard/$', Dashboard.as_view(), name='dashboard'),
+    url(r'/(?P<username>\w+)/reports/(?P<id_string>[^/]+)/(?P<office_id>[^/]+)/$', submission, name='submission'),
     url(r'/office-detail/(?P<pk>[\d+^/]+)/$', OfficeDetailView.as_view(), name='office_detail'),
     url(r'/xform-create/$', XFormView.as_view(), name='xform'),
     url(r'/form-create/$', FormView.as_view(), name='form'),
