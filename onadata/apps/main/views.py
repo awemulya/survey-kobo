@@ -61,6 +61,7 @@ from onadata.libs.utils.log import audit_log, Actions
 from onadata.libs.utils.qrcode import generate_qrcode
 from onadata.libs.utils.viewer_tools import enketo_url
 from onadata.libs.utils.export_tools import upload_template_for_external_export
+from onadata.settings.local_settings import LOGIN_REDIRECT_URL
 
 
 def home(request):
@@ -157,111 +158,116 @@ def clone_xlsform(request, username):
 
 
 def profile(request, username):
-    content_user = get_object_or_404(User, username__iexact=username)
-    form = QuickConverter()
-    data = {'form': form}
 
-    # xlsform submission...
-    if request.method == 'POST' and request.user.is_authenticated():
-        def set_form():
-            form = QuickConverter(request.POST, request.FILES)
-            survey = form.publish(request.user).survey
-            audit = {}
-            audit_log(
-                Actions.FORM_PUBLISHED, request.user, content_user,
-                _("Published form '%(id_string)s'.") %
-                {
-                    'id_string': survey.id_string,
-                }, audit, request)
-            enketo_webform_url = reverse(
-                enter_data,
-                kwargs={'username': username, 'id_string': survey.id_string}
-            )
-            return {
-                'type': 'alert-success',
-                'preview_url': reverse(enketo_preview, kwargs={
-                    'username': username,
-                    'id_string': survey.id_string
-                }),
-                'text': _(u'Successfully published %(form_id)s.'
-                          u' <a href="%(form_url)s">Enter Web Form</a>'
-                          u' or <a href="#preview-modal" data-toggle="modal">'
-                          u'Preview Web Form</a>')
-                % {'form_id': survey.id_string,
-                    'form_url': enketo_webform_url},
-                'form_o': survey
-            }
-        form_result = publish_form(set_form)
-        if form_result['type'] == 'alert-success':
-            # comment the following condition (and else)
-            # when we want to enable sms check for all.
-            # until then, it checks if form barely related to sms
-            if is_sms_related(form_result.get('form_o')):
-                form_result_sms = check_form_sms_compatibility(form_result)
-                data['message_list'] = [form_result, form_result_sms]
-            else:
-                data['message'] = form_result
-        else:
-            data['message'] = form_result
+    return HttpResponseRedirect(LOGIN_REDIRECT_URL)
 
-    # profile view...
-    # for the same user -> dashboard
-    if content_user == request.user:
-        show_dashboard = True
-        all_forms = content_user.xforms.count()
-        form = QuickConverterFile()
-        form_url = QuickConverterURL()
 
-        request_url = request.build_absolute_uri(
-            "/%s" % request.user.username)
-        url = request_url.replace('http://', 'https://')
-        xforms = XForm.objects.filter(user=content_user)\
-            .select_related('user').prefetch_related('instances')
-        user_xforms = xforms
-        # forms shared with user
-        xfct = ContentType.objects.get(app_label='logger', model='xform')
-        xfs = content_user.userobjectpermission_set.filter(content_type=xfct)
-        shared_forms_pks = list(set([xf.object_pk for xf in xfs]))
-        forms_shared_with = XForm.objects.filter(
-            pk__in=shared_forms_pks).exclude(user=content_user)\
-            .select_related('user')
-        # all forms to which the user has access
-        published_or_shared = XForm.objects.filter(
-            pk__in=shared_forms_pks).select_related('user')
-        xforms_list = [
-            {
-                'id': 'published',
-                'xforms': user_xforms,
-                'title': _(u"Published Forms"),
-                'small': _("Export, map, and view submissions.")
-            },
-            {
-                'id': 'shared',
-                'xforms': forms_shared_with,
-                'title': _(u"Shared Forms"),
-                'small': _("List of forms shared with you.")
-            },
-            {
-                'id': 'published_or_shared',
-                'xforms': published_or_shared,
-                'title': _(u"Published Forms"),
-                'small': _("Export, map, and view submissions.")
-            }
-        ]
-        data.update({
-            'all_forms': all_forms,
-            'show_dashboard': show_dashboard,
-            'form': form,
-            'form_url': form_url,
-            'url': url,
-            'user_xforms': user_xforms,
-            'xforms_list': xforms_list,
-            'forms_shared_with': forms_shared_with
-        })
-    # for any other user -> profile
-    set_profile_data(data, content_user)
-
-    return render(request, "profile.html", data)
+# def profile(request, username):
+#     content_user = get_object_or_404(User, username__iexact=username)
+#     form = QuickConverter()
+#     data = {'form': form}
+#
+#     # xlsform submission...
+#     if request.method == 'POST' and request.user.is_authenticated():
+#         def set_form():
+#             form = QuickConverter(request.POST, request.FILES)
+#             survey = form.publish(request.user).survey
+#             audit = {}
+#             audit_log(
+#                 Actions.FORM_PUBLISHED, request.user, content_user,
+#                 _("Published form '%(id_string)s'.") %
+#                 {
+#                     'id_string': survey.id_string,
+#                 }, audit, request)
+#             enketo_webform_url = reverse(
+#                 enter_data,
+#                 kwargs={'username': username, 'id_string': survey.id_string}
+#             )
+#             return {
+#                 'type': 'alert-success',
+#                 'preview_url': reverse(enketo_preview, kwargs={
+#                     'username': username,
+#                     'id_string': survey.id_string
+#                 }),
+#                 'text': _(u'Successfully published %(form_id)s.'
+#                           u' <a href="%(form_url)s">Enter Web Form</a>'
+#                           u' or <a href="#preview-modal" data-toggle="modal">'
+#                           u'Preview Web Form</a>')
+#                 % {'form_id': survey.id_string,
+#                     'form_url': enketo_webform_url},
+#                 'form_o': survey
+#             }
+#         form_result = publish_form(set_form)
+#         if form_result['type'] == 'alert-success':
+#             # comment the following condition (and else)
+#             # when we want to enable sms check for all.
+#             # until then, it checks if form barely related to sms
+#             if is_sms_related(form_result.get('form_o')):
+#                 form_result_sms = check_form_sms_compatibility(form_result)
+#                 data['message_list'] = [form_result, form_result_sms]
+#             else:
+#                 data['message'] = form_result
+#         else:
+#             data['message'] = form_result
+#
+#     # profile view...
+#     # for the same user -> dashboard
+#     if content_user == request.user:
+#         show_dashboard = True
+#         all_forms = content_user.xforms.count()
+#         form = QuickConverterFile()
+#         form_url = QuickConverterURL()
+#
+#         request_url = request.build_absolute_uri(
+#             "/%s" % request.user.username)
+#         url = request_url.replace('http://', 'https://')
+#         xforms = XForm.objects.filter(user=content_user)\
+#             .select_related('user').prefetch_related('instances')
+#         user_xforms = xforms
+#         # forms shared with user
+#         xfct = ContentType.objects.get(app_label='logger', model='xform')
+#         xfs = content_user.userobjectpermission_set.filter(content_type=xfct)
+#         shared_forms_pks = list(set([xf.object_pk for xf in xfs]))
+#         forms_shared_with = XForm.objects.filter(
+#             pk__in=shared_forms_pks).exclude(user=content_user)\
+#             .select_related('user')
+#         # all forms to which the user has access
+#         published_or_shared = XForm.objects.filter(
+#             pk__in=shared_forms_pks).select_related('user')
+#         xforms_list = [
+#             {
+#                 'id': 'published',
+#                 'xforms': user_xforms,
+#                 'title': _(u"Published Forms"),
+#                 'small': _("Export, map, and view submissions.")
+#             },
+#             {
+#                 'id': 'shared',
+#                 'xforms': forms_shared_with,
+#                 'title': _(u"Shared Forms"),
+#                 'small': _("List of forms shared with you.")
+#             },
+#             {
+#                 'id': 'published_or_shared',
+#                 'xforms': published_or_shared,
+#                 'title': _(u"Published Forms"),
+#                 'small': _("Export, map, and view submissions.")
+#             }
+#         ]
+#         data.update({
+#             'all_forms': all_forms,
+#             'show_dashboard': show_dashboard,
+#             'form': form,
+#             'form_url': form_url,
+#             'url': url,
+#             'user_xforms': user_xforms,
+#             'xforms_list': xforms_list,
+#             'forms_shared_with': forms_shared_with
+#         })
+#     # for any other user -> profile
+#     set_profile_data(data, content_user)
+#
+#     return render(request, "profile.html", data)
 
 
 def members_list(request):
