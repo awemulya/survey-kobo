@@ -18,6 +18,7 @@ from onadata.apps.logger.models import XForm
 from onadata.apps.office.models import Form, Office, District, Type, OfficeInstance
 from rest_framework.response import Response
 from .forms import OfficeFormForm as OfficeFormForm
+from django.core.urlresolvers import reverse_lazy 
 
 
 @api_view(['POST'])
@@ -170,3 +171,20 @@ class FormView(CreateView):
     model = Form
     form_class = OfficeFormForm
     template_name = 'office/form.html'
+
+
+class UserProfileView(DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'office/user_profile.html'
+
+
+class UserProfileUpdateView(UpdateView):
+    model = User
+    fields = ('first_name', 'last_name', 'email')
+    context_object_name = 'user'
+    template_name = 'office/user_profile_update.html'
+
+    def get_success_url(self):
+        success_url = reverse_lazy('user_profile', args=(self.object.pk,))
+        return success_url

@@ -1,4 +1,7 @@
 from django.conf.urls import url, include
+from .views import UserProfileView, UserProfileUpdateView
+
+from django.conf import settings
 
 from rest_framework import routers
 
@@ -31,5 +34,6 @@ urlpatterns = [
     url(r'/xform-create/$', XFormView.as_view(), name='xform'),
     url(r'/form-create/$', FormView.as_view(), name='form'),
     url(r'/form-create/$', FormView.as_view(), name='form'),
-
+    url(r'/accounts/user-profile/(?P<pk>[\d+^/]+)', UserProfileView.as_view(), name='users_profile'),
+    url(r'accounts/user-profile-update/(?P<pk>[\d+^/]+)', UserProfileUpdateView.as_view(), name='user_profile_update'),
 ]
