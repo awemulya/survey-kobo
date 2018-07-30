@@ -1,8 +1,4 @@
 from django.conf.urls import url, include
-from .views import UserProfileView, UserProfileUpdateView
-
-from django.conf import settings
-
 from rest_framework import routers
 
 from .views import*
@@ -24,6 +20,7 @@ urlpatterns = [
     # url(r'^', Application.as_view(), name='home'),
     url(r'api/',  include(router.urls)),
     url('api-token-auth/', token),
+    # url('anusuchi-forms/(?P<office_id>[\d+^/]+)', AnusuchiFormsViewset.as_view({'get': 'list', }), name="ausuchi_forms"),
 
     url(r'enketo1/(?P<pk>[\d+^/]+)/(?P<office>[\d+^/]+)', get_enketo_survey_links, name='links'),
     url('assigned-forms-list/(?P<office_id>[\d+^/]+)', OfficeFormListViewset.as_view({'get': 'list', }), name="office_forms"),
