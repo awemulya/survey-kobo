@@ -1,20 +1,57 @@
 {% extends 'office_base.html' %}
-{% load staticfiles %}
+{% load filters %}
+
 {% block content %}
+
+<div id="main-container" class="minified">
+
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <?php include 'header.php'; ?>
+
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्‍ठ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ office.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
             <div class="col-md-12">
                 <div class="dash-right">
                     <div class="row">
 
-                        <div class="col-md-12" style="margin-top: 60px">
+                        <div class="col-md-12">
+                            <div class="widget-info margin-top-large">
+                                <div class="widget-head">
+                                    <h5><a href="#" title="">{{ office.name }}</a></h5>
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="dash-right">
+                                        <div class="row">
 
-                            <form action="" method="post">{% csrf_token %}
-                                {{ form.as_p }}
-                                <input type="submit" class="btn-primary">
-                            </form>
+                                            <div class="col-md-12" style="margin-top: 60px">
 
+                                                <form action="" method="post">{% csrf_token %}
+                                                    {{ form.as_p }}
+                                                    <input type="submit" class="btn-primary">
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+</div>
 {% endblock content %}
