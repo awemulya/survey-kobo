@@ -167,7 +167,6 @@ class XFormView(CreateView):
 
 
 class FormView(CreateView):
-
     model = Form
     form_class = OfficeFormForm
     template_name = 'office/form.html'

@@ -148,3 +148,20 @@ class CustomXFormSubmissionApi(XFormSubmissionApi):
                         headers=self.get_openrosa_headers(request),
                         status=status.HTTP_201_CREATED,
                         template_name=self.template_name)
+
+
+class OfficeAnusuchiApiView(APIView):
+
+    def get(self, request, office_id=None, format=None):
+        data = dict(anusuchi_1=[], anusuchi_2=[], anusuchi_3=[])
+        office = get_object_or_404(Office, id=office_id)
+        forms = Form.objects.filter(type__icontains=office.type).select_related('xform')
+        for f in forms:
+            if f.anusuchi == '1':
+                data['anusuchi_1'].append(FormSerializer(f).data)
+            elif f.anusuchi == '2':
+                data['anusuchi_2'].append(FormSerializer(f).data)
+            elif f.anusuchi == '3':
+                data['anusuchi_3'].append(FormSerializer(f).data)
+
+        return Response(data)
