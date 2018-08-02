@@ -87,7 +87,7 @@
 						<div class="user-avatar">
 							<img src="{% static 'assets/img/img-avatar.jpg' %}" alt="">
 						</div>
-						<span class="hidden-sm hidden-xs">बिक्रान्त गिरी</span>
+						<span class="hidden-sm hidden-xs">{{ request.user }}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonUser">
 						<a class="dropdown-item" href="{% url 'users_profile' request.user.id %}"><i class="la la-user"></i> मेरो प्रोफाइल</a>
