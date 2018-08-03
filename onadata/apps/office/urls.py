@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'/accounts/user-profile/(?P<pk>[\d+^/]+)', UserProfileView.as_view(), name='users_profile'),
     url(r'accounts/user-profile-update/(?P<pk>[\d+^/]+)', UserProfileUpdateView.as_view(), name='user_profile_update'),
     url(r'office-anusuchi/(?P<office_id>[\d+^/]+)', OfficeAnusuchiApiView.as_view()),
+    url(r'/office-submissions/(?P<id_string>[^/]+)/(?P<office_id>[\d+^/]+)', OfficeSubmissionsAPIView.as_view())
 ]

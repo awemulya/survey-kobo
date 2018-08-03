@@ -58,3 +58,12 @@ class Form(models.Model):
         count = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=self.xform.id).count()
         return count
 
+    @staticmethod
+    def submission_date(self, office_id, force_update=False):
+        try:
+            obj = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=self.xform.id).first()
+            return obj.instance.date_created
+        except:
+            return None
+
+

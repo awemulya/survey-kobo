@@ -150,6 +150,12 @@ class CustomXFormSubmissionApi(XFormSubmissionApi):
                         template_name=self.template_name)
 
 
+def get_form_data(f, office_id):
+    return {"form_name": f.xform.title,
+            "count": f.submission_count(f, office_id),
+            "date": f.submission_date(f, office_id)}
+
+
 class OfficeAnusuchiApiView(APIView):
 
     def get(self, request, office_id=None, format=None):
@@ -158,10 +164,16 @@ class OfficeAnusuchiApiView(APIView):
         forms = Form.objects.filter(type__icontains=office.type).select_related('xform')
         for f in forms:
             if f.anusuchi == '1':
-                data['anusuchi_1'].append(FormSerializer(f).data)
+                data['anusuchi_1'].append(get_form_data(f, office_id))
             elif f.anusuchi == '2':
-                data['anusuchi_2'].append(FormSerializer(f).data)
+                data['anusuchi_2'].append(get_form_data(f, office_id))
             elif f.anusuchi == '3':
-                data['anusuchi_3'].append(FormSerializer(f).data)
+                data['anusuchi_3'].append(get_form_data(f, office_id))
 
         return Response(data)
+
+
+class OfficeSubmissionsAPIView(APIView):
+    def get(self, request, id_string=None, office_id=None, format=None):
+        return Response({})
+
