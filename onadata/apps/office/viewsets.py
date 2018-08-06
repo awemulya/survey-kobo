@@ -174,6 +174,12 @@ class OfficeAnusuchiApiView(APIView):
 
 
 class OfficeSubmissionsAPIView(APIView):
+
     def get(self, request, id_string=None, office_id=None, format=None):
-        return Response({})
+        instance = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=xform.id)
+        data = {'office':office, 'instance':instance, 'username':username, 'id_string':id_string}
+        office = Office.objects.get(id=office_id)
+        xform = XForm.objects.get(id_string=id_string)       
+
+        return render(data)
 
