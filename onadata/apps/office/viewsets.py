@@ -178,7 +178,5 @@ class OfficeSubmissionsAPIView(APIView):
     def get(self, request, id_string, office_id=None, format=None):
         xform = XForm.objects.get(id_string=id_string)
         office_instance = OfficeInstance.objects.filter(office_id=office_id, instance__xform_id=xform.id)
-
-        # data = {'username': ins.instance.user.username for ins in office_instance, 'date_submitted': ins.instance.date_created for ins in office_instance}
-        data = {'data': (ins.instance.user.username, ins.instance.date_created) for ins in office_instance}
+        data = {'data': [(ins.instance.user.username, ins.instance.date_created) for ins in office_instance]}
         return Response(data)
