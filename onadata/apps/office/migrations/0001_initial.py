@@ -25,8 +25,8 @@ class Migration(migrations.Migration):
             name='Form',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('type', django.contrib.postgres.fields.ArrayField(null=True, base_field=models.IntegerField(choices=[(1, b'Napi'), (2, b'Bhumi Sudhar'), (3, b'Malpot')]), size=None)),
-                ('anusuchi', models.CharField(max_length=100, choices=[(1, b'First'), (2, b'Second'), (3, b'Third')])),
+                ('type', django.contrib.postgres.fields.ArrayField(null=True, base_field=models.IntegerField(choices=[(1, b'\xe0\xa4\xa8\xe0\xa4\xbe\xe0\xa4\xaa\xe0\xa5\x80'), (2, b'\xe0\xa4\xad\xe0\xa5\x81\xe0\xa4\xae\xe0\xa4\xbf \xe0\xa4\xb8\xe0\xa5\x81\xe0\xa4\xa7\xe0\xa4\xbe\xe0\xa4\xb0'), (3, b'\xe0\xa4\xae\xe0\xa4\xbe\xe0\xa4\xb2\xe0\xa4\xaa\xe0\xa5\x8b\xe0\xa4\xa4')]), size=None)),
+                ('anusuchi', models.CharField(max_length=100, choices=[(b'1', b'\xe0\xa4\xaa\xe0\xa4\xb9\xe0\xa4\xbf\xe0\xa4\xb2\xe0\xa5\x8b'), (b'2', b'\xe0\xa4\xa6\xe0\xa5\x8b\xe0\xa4\xb8\xe0\xa5\x8d\xe0\xa4\xb0\xe0\xa5\x8b'), (b'3', b'\xe0\xa4\xa4\xe0\xa5\x87\xe0\xa4\xb8\xe0\xa5\x8d\xe0\xa4\xb0\xe0\xa5\x8b')])),
                 ('xform', models.ForeignKey(related_name='form', to='logger.XForm')),
             ],
         ),
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(help_text=b'Enter Office Name', max_length=255)),
-                ('type', models.CharField(max_length=100, null=True, choices=[(1, b'Napi'), (2, b'Bhumi Sudhar'), (3, b'Malpot')])),
+                ('type', models.CharField(default=1, max_length=100, choices=[(1, b'\xe0\xa4\xa8\xe0\xa4\xbe\xe0\xa4\xaa\xe0\xa5\x80'), (2, b'\xe0\xa4\xad\xe0\xa5\x81\xe0\xa4\xae\xe0\xa4\xbf \xe0\xa4\xb8\xe0\xa5\x81\xe0\xa4\xa7\xe0\xa4\xbe\xe0\xa4\xb0'), (3, b'\xe0\xa4\xae\xe0\xa4\xbe\xe0\xa4\xb2\xe0\xa4\xaa\xe0\xa5\x8b\xe0\xa4\xa4')])),
                 ('district', models.ForeignKey(related_name='offices', to='office.District', null=True)),
             ],
         ),
@@ -61,6 +61,13 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('office', models.ForeignKey(related_name='offices', to='office.Office')),
                 ('user', models.ForeignKey(related_name='users', to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Type',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('type', models.IntegerField(choices=[(1, b'\xe0\xa4\xa8\xe0\xa4\xbe\xe0\xa4\xaa\xe0\xa5\x80'), (2, b'\xe0\xa4\xad\xe0\xa5\x81\xe0\xa4\xae\xe0\xa4\xbf \xe0\xa4\xb8\xe0\xa5\x81\xe0\xa4\xa7\xe0\xa4\xbe\xe0\xa4\xb0'), (3, b'\xe0\xa4\xae\xe0\xa4\xbe\xe0\xa4\xb2\xe0\xa4\xaa\xe0\xa5\x8b\xe0\xa4\xa4')])),
             ],
         ),
     ]
