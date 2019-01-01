@@ -157,6 +157,9 @@ def get_form_data(f, office_id):
 
 
 class OfficeAnusuchiApiView(APIView):
+    """
+    Get all anusuchi forms of specific project
+    """
 
     def get(self, request, office_id=None, format=None):
         data = dict(anusuchi_1=[], anusuchi_2=[], anusuchi_3=[])
